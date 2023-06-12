@@ -1,3 +1,5 @@
+package elevatordesign;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -9,9 +11,9 @@ import java.util.PriorityQueue;
  *  - have buttons on each floor
  *
  * Step 2: Identify Objects:
- *  Elevator, ExternalButtonPanel, InternalButtonPanel, Request, ElevatorSystemController,
- *  ElevatorPickStrategy(I), ShortestTimeElevatorPickStrategyImpl, ServeRequestStrategy(I),
- *  MinimumRoundServeRequestStrategy, ElevatorHandler
+ *  elevatordesign.Elevator, ExternalButtonPanel, InternalButtonPanel, elevatordesign.Request, elevatordesign.ElevatorSystemController,
+ *  elevatordesign.ElevatorPickStrategy(I), ShortestTimeElevatorPickStrategyImpl, elevatordesign.ServeRequestStrategy(I),
+ *  MinimumRoundServeRequestStrategy, elevatordesign.ElevatorHandler
  **/
 public class ElevatorDesign {
 
@@ -66,7 +68,7 @@ class ElevatorSystemController {
     public ElevatorHandler requestForElevator(int floor) {
         ElevatorHandler elevatorHandler = elevatorPickStrategy.getElevator(elevatorHandlers, floor);
 
-        System.out.println("Elevator " + elevatorHandler.elevator.id + " is coming to requested " + floor + " floor");
+        System.out.println("elevatordesign.Elevator " + elevatorHandler.elevator.id + " is coming to requested " + floor + " floor");
         elevatorHandler.process(new Request(floor, floor, LOCATION.OUTSIDE));
         return elevatorHandler;
     }

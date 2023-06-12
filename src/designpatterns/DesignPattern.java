@@ -1,9 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
+package designpatterns;
 
 /**
  * Creational DP:
- * 1. Singleton**
+ * 1. designpatterns.Singleton**
  * 2. Builder**
  * 3. Factory/Abstract factory**
  * 4. Prototype
@@ -29,7 +28,7 @@ public class DesignPattern {
 }
 
 /**
- * Singleton using class
+ * designpatterns.Singleton using class
  */
 class Singleton {
     private static Singleton singleton;
@@ -45,7 +44,7 @@ class Singleton {
 }
 
 /**
- * Singleton using ENUM
+ * designpatterns.Singleton using ENUM
  */
 enum SingletonUsingEnum {
     INSTANCE;

@@ -1,3 +1,5 @@
+package versionmanagerdesign;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,23 +22,40 @@ public class VersionManagerDesign {
         versionManager.addVersion(5L, true);
 
         // Testing compatibility
-        System.out.println(versionManager.isCompatible(1L, 2L));  // true
-        System.out.println(versionManager.isCompatible(2L, 3L));  // true
-        System.out.println(versionManager.isCompatible(3L, 4L));  // false
-        System.out.println(versionManager.isCompatible(4L, 5L));  // true
-        System.out.println(versionManager.isCompatible(1L, 5L));  // false
+        System.out.println(versionManager.isCompatibleOptimised(1L, 2L));  // true
+        System.out.println(versionManager.isCompatibleOptimised(2L, 3L));  // true
+        System.out.println(versionManager.isCompatibleOptimised(3L, 4L));  // false
+        System.out.println(versionManager.isCompatibleOptimised(4L, 5L));  // true
+        System.out.println(versionManager.isCompatibleOptimised(1L, 5L));  // false
     }
 }
 
 class VersionManager {
     private Map<Long, Boolean> versionCompatibilityMap;
 
+    private Map<Long, Map<Long, Boolean>> dp;
+
     public VersionManager() {
         versionCompatibilityMap = new HashMap<>();
+        dp = new HashMap<>();
     }
 
     public void addVersion(long versionNumber, boolean isCompatibleWithPrev) {
         versionCompatibilityMap.put(versionNumber, isCompatibleWithPrev);
+
+        dp.putIfAbsent(versionNumber, new HashMap<>());
+        boolean temp = isCompatibleWithPrev;
+        long tempVersion = versionNumber-1;
+        while (temp) {
+
+            if (dp.get(versionNumber) == null)
+                break;
+            dp.get(versionNumber).put(tempVersion, temp);
+            tempVersion--;
+            if (dp.get(versionNumber-1) == null)
+                break;
+            temp = dp.get(versionNumber-1).get(tempVersion) == null? false: dp.get(versionNumber-1).get(tempVersion);
+        }
     }
 
     public boolean isCompatible(long version1, long version2) {
@@ -57,6 +76,16 @@ class VersionManager {
         }
 
         return false;
+    }
+
+    public boolean isCompatibleOptimised (long version1, long version2) {
+
+        if (version1 == version2)
+            return true;
+
+        if (dp.get(version2) == null || dp.get(version2).get(version1) == null)
+            return false;
+        return dp.get(version2).get(version1);
     }
 }
 
